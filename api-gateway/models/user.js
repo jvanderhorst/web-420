@@ -2,11 +2,18 @@
 Fields username, password, and email
 */
 var mongoose = require('mongoose');
-var userSchema = new mongoose.Schema({ username: String,
-password: String, email: String
-});
-module.exports = mongoose.model('User', userSchema);
 
+var userSchema = new mongoose.Schema({ 
+    username: String,
+    password: String, 
+    email: String
+});
+
+const User = module.exports = mongoose.model('User', userSchema);
+
+/**
+Database queries
+*/
 module.exports.add = (user, callback) => {
     user.save(callback);
 };
@@ -16,6 +23,8 @@ module.exports.getById = (id, callback) => {
     User.findById(query, callback);
 };
 
-/**
-Database queries
-*/
+module.exports.getOne = (e, callback) => {
+    var query = {email: e};
+    User.findOne(query, callback);
+}
+
